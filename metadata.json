@@ -1,0 +1,6 @@
+{
+  "name": "Өлзийтогтох — Вэб Хөгжүүлэгчийн Портфолио",
+  "description": "16 настай вэб хөгжүүлэгч Өлзийтогтохын бүтээлүүд, танилцуулга, сонирхол болон суралцах зорилгуудын портфолио.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
