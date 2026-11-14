@@ -6,7 +6,7 @@ const NAV_LINKS = [
   { label: 'Эхлэл', href: '#hero' },
   { label: 'Бүтээлүүд', href: '#projects' },
   { label: 'Танилцуулга', href: '#about' },
-  { label: 'Сонирхол', href: '#interests' },
+  { label: 'Зорилго', href: '#goals' },
   { label: 'Захиалга', href: '#order' },
 ];
 

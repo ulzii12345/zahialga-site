@@ -2,8 +2,6 @@ import developerAvatarPortrait from '../assets/images/developer_male_avatar_1794
 import projectDreamJobImg from '../assets/images/project_dream_job_1794633494485.jpg';
 import projectMyYoutubeImg from '../assets/images/project_my_youtube_1794633495004.jpg';
 import hobbyCodingSetupImg from '../assets/images/hobby_coding_setup_1794633495483.jpg';
-import interestAvengersCinemaImg from '../assets/images/interest_avengers_cinema_1794633495303.jpg';
-import interestSushiCulinaryImg from '../assets/images/interest_sushi_culinary_1794633496460.jpg';
 
 export interface ProjectItem {
   id: string;
@@ -15,15 +13,6 @@ export interface ProjectItem {
   icon: 'briefcase' | 'youtube';
   previewImage: string;
   accentColor: string;
-}
-
-export interface InterestItem {
-  id: string;
-  title: string;
-  type: string;
-  description: string;
-  imageUrl: string;
-  meta: string;
 }
 
 export interface GoalItem {
@@ -69,36 +58,6 @@ export const PROJECTS_DATA: ProjectItem[] = [
     icon: 'youtube',
     previewImage: projectMyYoutubeImg,
     accentColor: '#f43f5e',
-  },
-];
-
-export const INTERESTS_DATA: InterestItem[] = [
-  {
-    id: 'hobby-code',
-    title: 'Хобби: Код бичих',
-    type: 'Технологи ба бүтээлч сэтгэлгээ',
-    description:
-      'Чөлөөт цагаараа вэбийн HTML, CSS, JavaScript бичиж шинэ санаа, интерактив хуудсууд турших дуртай.',
-    imageUrl: hobbyCodingSetupImg,
-    meta: 'Өдөр бүр код бичих дадлага · Логик сэтгэлгээ',
-  },
-  {
-    id: 'movie-avengers',
-    title: 'Дуртай кино: Avengers',
-    type: 'Кино урлаг & Шинжлэх ухааны уран зөгнөл',
-    description:
-      'Marvel кино ертөнцийн супер баатрууд, дэвшилтэт технологи болон багийн хамтын ажиллагаатай өрнүүн бүтээлүүдэд маш их дуртай.',
-    imageUrl: interestAvengersCinemaImg,
-    meta: 'Өшөө авагчид · Төсөөлөл ба урам зориг',
-  },
-  {
-    id: 'food-sushi',
-    title: 'Дуртай хоол: Sushi (Сүши)',
-    type: 'Амтат хоол & Соёл',
-    description:
-      'Японы уламжлалт сүши, шинэ загас, цагаан будааны нарийн ур хийцтэй зоог бол миний хамгийн дуртай амт.',
-    imageUrl: interestSushiCulinaryImg,
-    meta: 'Япон хоол · Эрүүл бөгөөд амттай',
   },
 ];
 

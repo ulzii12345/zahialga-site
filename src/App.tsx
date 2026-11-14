@@ -3,7 +3,6 @@ import { AboutSection } from './components/AboutSection';
 import { Footer } from './components/Footer';
 import { GoalsSection } from './components/GoalsSection';
 import { HeroSection } from './components/HeroSection';
-import { InterestsSection } from './components/InterestsSection';
 import { MediaLightbox, type LightboxItem } from './components/MediaLightbox';
 import { Navbar } from './components/Navbar';
 import { NetlifyConfigModal } from './components/NetlifyConfigModal';
@@ -23,7 +22,6 @@ export default function App() {
           <HeroSection />
           <ProjectsSection onOpenLightbox={setLightboxItem} />
           <AboutSection onOpenLightbox={setLightboxItem} />
-          <InterestsSection onOpenLightbox={setLightboxItem} />
           <GoalsSection />
           <OrderSection />
         </main>

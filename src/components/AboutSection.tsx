@@ -165,10 +165,10 @@ export function AboutSection({ onOpenLightbox }: AboutSectionProps) {
                 </a>
 
                 <a
-                  href="#interests"
+                  href="#goals"
                   className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-zinc-300 hover:text-white bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl transition-colors whitespace-nowrap shrink-0"
                 >
-                  <span>Сонирхол ба хобби үзэх →</span>
+                  <span>Суралцах зорилго үзэх →</span>
                 </a>
               </div>
             </div>
