@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import {
   AlertCircle,
   CheckCircle2,
+  ClipboardList,
   Loader2,
   Send,
   Sparkles,
 } from 'lucide-react';
+import { useFirebase } from '../context/FirebaseContext';
+import { db, handleFirestoreError, OperationType } from '../firebase';
 
 const PROJECT_TYPES = [
   'Танилцуулга сайт',
@@ -36,9 +40,9 @@ const ORDER_STEPS = [
   },
   {
     number: '02',
-    title: 'Загвар ба бүтэц тохирох',
+    title: 'Firestore & Discord бүртгэл',
     description:
-      'Таны хүсэлтийг Discord дээр хүлээн авч, загвар болон хугацааг хамт тохирно.',
+      'Таны захиалга Firebase өгөгдлийн санд хадгалагдаж, миний Discord сувагт шууд очно.',
   },
   {
     number: '03',
@@ -64,7 +68,15 @@ interface SubmittedReceipt {
   contact: string;
 }
 
+function generateOrderCode(): string {
+  const timePart = Date.now().toString(36).toUpperCase();
+  const randPart = Math.random().toString(36).slice(2, 5).toUpperCase();
+  return `ORD-${timePart}${randPart}`.slice(0, 20);
+}
+
 export function OrderSection() {
+  const { user, isAdmin, setIsPortalOpen } = useFirebase();
+
   const [projectType, setProjectType] = useState<string>(PROJECT_TYPES[0]);
   const [name, setName] = useState('');
   const [contact, setContact] = useState('');
@@ -110,45 +122,69 @@ export function OrderSection() {
     setErrors({});
     setSubmitting(true);
 
+    const orderCode = generateOrderCode();
+    const cleanName = name.trim().slice(0, 100);
+    const cleanContact = contact.trim().slice(0, 150);
+    const cleanEmail = email.trim().slice(0, 150);
+    const cleanDetails = details.trim().slice(0, 1800);
+    const customerUid = user && user.emailVerified ? user.uid : '';
+
     try {
-      const response = await fetch('/api/orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: name.trim(),
-          contact: contact.trim(),
-          email: email.trim(),
+      try {
+        await setDoc(doc(db, 'orders', orderCode), {
+          orderCode,
+          name: cleanName,
+          contact: cleanContact,
+          email: cleanEmail,
           projectType,
           budget,
           timeline,
-          details: details.trim(),
-        }),
-      });
-
-      const data = (await response.json().catch(() => ({}))) as {
-        success?: boolean;
-        orderId?: string;
-        error?: string;
-      };
-
-      if (!response.ok || !data.success) {
-        setServerError(
-          data.error || 'Хүсэлт илгээхэд алдаа гарлаа. Дахин оролдоно уу.'
+          details: cleanDetails,
+          status: 'new',
+          adminNote: '',
+          customerUid,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        });
+      } catch (firestoreErr) {
+        handleFirestoreError(
+          firestoreErr,
+          OperationType.CREATE,
+          `orders/${orderCode}`
         );
-        return;
+      }
+
+      // Send real-time Discord webhook alert via server route (non-blocking if Discord fails)
+      try {
+        await fetch('/api/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            orderCode,
+            name: cleanName,
+            contact: cleanContact,
+            email: cleanEmail,
+            projectType,
+            budget,
+            timeline,
+            details: cleanDetails,
+          }),
+        });
+      } catch {
+        // Order is already persisted safely in Firestore
       }
 
       setReceipt({
-        orderId: data.orderId || 'ORD-NEW',
-        name: name.trim(),
+        orderId: orderCode,
+        name: cleanName,
         projectType,
-        contact: contact.trim(),
+        contact: cleanContact,
       });
     } catch {
       setServerError(
-        'Сервертэй холбогдож чадсангүй. Интернет холболтоо шалгаад дахин оролдоно уу.'
+        'Захиалгыг хадгалахад алдаа гарлаа. Интернет холболтоо шалгаад дахин оролдоно уу.'
       );
     } finally {
       setSubmitting(false);
@@ -180,7 +216,7 @@ export function OrderSection() {
                 <span aria-hidden="true" className="text-zinc-600">
                   ·
                 </span>
-                <span className="text-zinc-400">Шууд хүсэлт илгээх</span>
+                <span className="text-zinc-400">Firebase & Discord</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white font-display text-balance">
                 Вэб сайт хийлгэх хүсэлт илгээх
@@ -188,7 +224,7 @@ export function OrderSection() {
               <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mt-3">
                 Та өөрийн портфолио, танилцуулга хуудас эсвэл интерактив вэб
                 аппликейшн хийлгэхийг хүсвэл маягтыг бөглөнө үү. Таны захиалга
-                миний Discord сувагт шууд очно.
+                Firebase-д хадгалагдаж, Discord сувагт шууд очно.
               </p>
             </div>
 
@@ -209,6 +245,23 @@ export function OrderSection() {
                 </div>
               ))}
             </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setIsPortalOpen(true)}
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-zinc-200 hover:text-white bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl transition-colors whitespace-nowrap"
+              >
+                <ClipboardList className="w-4 h-4 text-cyan-400 shrink-0" />
+                <span>
+                  {isAdmin
+                    ? 'Админ захиалгын самбар нээх'
+                    : user
+                      ? 'Миний илгээсэн захиалгууд'
+                      : 'Захиалга хянах / Google нэвтрэх'}
+                </span>
+              </button>
+            </div>
           </div>
 
           <div className="lg:col-span-7">
@@ -224,11 +277,12 @@ export function OrderSection() {
                       Захиалгын дугаар: {receipt.orderId}
                     </div>
                     <h3 className="text-2xl font-bold text-white font-display">
-                      Таны захиалга амжилттай илгээгдлээ
+                      Таны захиалга амжилттай бүртгэгдлээ
                     </h3>
                     <p className="text-sm text-zinc-400 leading-relaxed">
-                      Баярлалаа, {receipt.name}. Таны хүсэлт миний Discord суваг
-                      руу амжилттай очсон бөгөөд удахгүй эргэн холбогдох болно.
+                      Баярлалаа, {receipt.name}. Таны хүсэлт Firebase өгөгдлийн
+                      санд хадгалагдаж, миний Discord суваг руу мэдэгдэл
+                      илгээгдлээ.
                     </p>
                   </div>
 
@@ -247,13 +301,22 @@ export function OrderSection() {
                     </div>
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={handleReset}
-                    className="inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold text-black bg-cyan-400 hover:bg-cyan-300 rounded-xl transition-colors"
-                  >
-                    Шинэ захиалга өгөх
-                  </button>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={handleReset}
+                      className="inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold text-black bg-cyan-400 hover:bg-cyan-300 rounded-xl transition-colors"
+                    >
+                      Шинэ захиалга өгөх
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsPortalOpen(true)}
+                      className="inline-flex items-center justify-center px-4 py-2.5 text-xs font-medium text-zinc-200 hover:text-white bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl transition-colors"
+                    >
+                      Захиалгын самбар харах
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-5">
@@ -293,6 +356,7 @@ export function OrderSection() {
                       <input
                         id="order-name"
                         type="text"
+                        maxLength={100}
                         value={name}
                         onChange={(e) => {
                           setName(e.target.value);
@@ -321,6 +385,7 @@ export function OrderSection() {
                       <input
                         id="order-contact"
                         type="text"
+                        maxLength={150}
                         value={contact}
                         onChange={(e) => {
                           setContact(e.target.value);
@@ -353,6 +418,7 @@ export function OrderSection() {
                       <input
                         id="order-email"
                         type="email"
+                        maxLength={150}
                         value={email}
                         onChange={(e) => {
                           setEmail(e.target.value);
@@ -427,6 +493,7 @@ export function OrderSection() {
                     <textarea
                       id="order-details"
                       rows={4}
+                      maxLength={1800}
                       value={details}
                       onChange={(e) => {
                         setDetails(e.target.value);
@@ -459,7 +526,7 @@ export function OrderSection() {
 
                   <div className="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <p className="text-xs text-zinc-500">
-                      Хүсэлт илгээснээр Discord мэдэгдэл автоматаар очно.
+                      Firebase Firestore-д хадгалагдаж, Discord мэдэгдэл очно.
                     </p>
                     <button
                       type="submit"

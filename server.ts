@@ -36,6 +36,7 @@ function resolvePort(): number {
 const PORT = resolvePort();
 
 interface OrderPayload {
+  orderCode?: unknown;
   name?: unknown;
   contact?: unknown;
   email?: unknown;
@@ -46,6 +47,7 @@ interface OrderPayload {
 }
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ORDER_CODE_REGEX = /^ORD-[A-Z0-9]{2,20}$/;
 
 function sanitizeField(value: unknown, maxLength: number): string {
   if (typeof value !== 'string') return '';
@@ -64,6 +66,7 @@ async function startServer() {
     try {
       const body = (req.body || {}) as OrderPayload;
 
+      const incomingOrderCode = sanitizeField(body.orderCode, 24);
       const name = sanitizeField(body.name, 100);
       const contact = sanitizeField(body.contact, 150);
       const email = sanitizeField(body.email, 150);
@@ -102,7 +105,9 @@ async function startServer() {
         });
       }
 
-      const orderId = `ORD-${Date.now().toString(36).toUpperCase()}`;
+      const orderId = ORDER_CODE_REGEX.test(incomingOrderCode)
+        ? incomingOrderCode
+        : `ORD-${Date.now().toString(36).toUpperCase()}`;
 
       const discordEmbed = {
         username: 'Вэб Захиалга Бот',

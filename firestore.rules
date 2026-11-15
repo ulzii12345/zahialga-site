@@ -1,0 +1,176 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net: Default-deny all unconfigured paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Primitive Helpers ---
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isBootstrappedAdmin() {
+      return isVerifiedUser() && request.auth.token.email == 'tserennadmidtungalag228@gmail.com';
+    }
+
+    function isAdmin() {
+      return isBootstrappedAdmin() || (
+        isVerifiedUser() &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // --- Validation Blueprints ---
+    function isValidOrder(data) {
+      return data.keys().hasAll([
+          'orderCode', 'name', 'contact', 'email', 'projectType',
+          'budget', 'timeline', 'details', 'status', 'adminNote',
+          'customerUid', 'createdAt', 'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'orderCode', 'name', 'contact', 'email', 'projectType',
+          'budget', 'timeline', 'details', 'status', 'adminNote',
+          'customerUid', 'createdAt', 'updatedAt'
+        ])
+        && data.orderCode is string
+        && data.orderCode.size() >= 6 && data.orderCode.size() <= 24
+        && data.orderCode.matches('^ORD-[A-Z0-9]{2,20}$')
+        && data.name is string
+        && data.name.size() >= 2 && data.name.size() <= 100
+        && data.contact is string
+        && data.contact.size() >= 4 && data.contact.size() <= 150
+        && data.email is string
+        && data.email.size() <= 150
+        && data.projectType is string
+        && data.projectType.size() <= 100
+        && data.projectType in [
+          'Танилцуулга сайт',
+          'Портфолио / Блог',
+          'Бизнес / Байгууллага',
+          'Тусгай интерактив вэб'
+        ]
+        && data.budget is string
+        && data.budget.size() <= 100
+        && data.budget in [
+          '100,000₮ – 250,000₮',
+          '250,000₮ – 500,000₮',
+          '500,000₮ – 1,000,000₮',
+          'Тохиролцоно'
+        ]
+        && data.timeline is string
+        && data.timeline.size() <= 100
+        && data.timeline in [
+          'Яаралтай (3–5 хоног)',
+          'Энгийн (1–2 долоо хоног)',
+          'Яарахгүй (Тохиролцоно)'
+        ]
+        && data.details is string
+        && data.details.size() >= 10 && data.details.size() <= 1800
+        && data.status is string
+        && data.status.size() <= 32
+        && data.status in ['new', 'in_progress', 'completed', 'cancelled']
+        && data.adminNote is string
+        && data.adminNote.size() <= 500
+        && data.customerUid is string
+        && data.customerUid.size() <= 128
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidSiteSettings(data) {
+      return data.keys().hasAll(['netlifySubdomain', 'updatedBy', 'updatedAt'])
+        && data.keys().hasOnly(['netlifySubdomain', 'updatedBy', 'updatedAt'])
+        && data.netlifySubdomain is string
+        && data.netlifySubdomain.size() >= 2 && data.netlifySubdomain.size() <= 80
+        && data.netlifySubdomain.matches('^[a-zA-Z0-9-]+$')
+        && data.updatedBy is string
+        && data.updatedBy.size() >= 1 && data.updatedBy.size() <= 128
+        && data.updatedBy == request.auth.uid
+        && data.updatedAt is timestamp
+        && data.updatedAt == request.time;
+    }
+
+    // --- Collection Rules ---
+
+    match /orders/{orderId} {
+      // PII Protection: Only verified admin or the signed-in owner of that order can get/list
+      allow get: if isValidId(orderId) && (
+        isAdmin() ||
+        (isVerifiedUser() && existing().customerUid != '' && existing().customerUid == request.auth.uid)
+      );
+
+      // No get()/exists() in list rules to prevent O(n) read amplification
+      allow list: if isBootstrappedAdmin() || (
+        isVerifiedUser() && existing().customerUid != '' && existing().customerUid == request.auth.uid
+      );
+
+      // Public visitors or signed-in users can create a new order with strict defaults
+      allow create: if isValidId(orderId)
+        && isValidOrder(incoming())
+        && incoming().status == 'new'
+        && incoming().adminNote == ''
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time
+        && (
+          (!isSignedIn() && incoming().customerUid == '') ||
+          (isVerifiedUser() && incoming().customerUid == request.auth.uid)
+        );
+
+      // Admin-only updates with immutable fields preserved
+      allow update: if isValidId(orderId)
+        && isAdmin()
+        && isValidOrder(incoming())
+        && incoming().orderCode == existing().orderCode
+        && incoming().customerUid == existing().customerUid
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly(['status', 'adminNote', 'updatedAt']);
+
+      allow delete: if isValidId(orderId) && isAdmin();
+    }
+
+    match /settings/{settingId} {
+      // Public config (Netlify subdomain) is readable as a single document; list is disabled
+      allow get: if isValidId(settingId) && settingId == 'site';
+      allow list: if false;
+
+      allow create, update: if isValidId(settingId)
+        && settingId == 'site'
+        && isAdmin()
+        && isValidSiteSettings(incoming());
+
+      allow delete: if false;
+    }
+
+    match /admins/{adminId} {
+      allow get: if isValidId(adminId) && isAdmin() && adminId == request.auth.uid;
+      allow list, create, update, delete: if false;
+    }
+
+    match /test/{docId} {
+      // Boot-time connectivity check document (non-sensitive)
+      allow get: if isValidId(docId) && docId == 'connection';
+      allow list, write: if false;
+    }
+  }
+}

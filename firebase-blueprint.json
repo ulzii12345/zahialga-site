@@ -1,0 +1,171 @@
+{
+  "entities": {
+    "Order": {
+      "title": "Order",
+      "description": "Website development order submitted by a visitor or signed-in customer.",
+      "type": "object",
+      "properties": {
+        "orderCode": {
+          "type": "string",
+          "description": "Human-readable order reference code.",
+          "minLength": 6,
+          "maxLength": 24,
+          "pattern": "^ORD-[A-Z0-9]{2,20}$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Customer display name.",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "contact": {
+          "type": "string",
+          "description": "Customer phone number, Discord handle, or social link.",
+          "minLength": 4,
+          "maxLength": 150
+        },
+        "email": {
+          "type": "string",
+          "description": "Optional customer email address.",
+          "maxLength": 150
+        },
+        "projectType": {
+          "type": "string",
+          "description": "Requested website category.",
+          "enum": [
+            "Танилцуулга сайт",
+            "Портфолио / Блог",
+            "Бизнес / Байгууллага",
+            "Тусгай интерактив вэб"
+          ]
+        },
+        "budget": {
+          "type": "string",
+          "description": "Estimated project budget in MNT.",
+          "enum": [
+            "100,000₮ – 250,000₮",
+            "250,000₮ – 500,000₮",
+            "500,000₮ – 1,000,000₮",
+            "Тохиролцоно"
+          ]
+        },
+        "timeline": {
+          "type": "string",
+          "description": "Desired delivery timeframe.",
+          "enum": [
+            "Яаралтай (3–5 хоног)",
+            "Энгийн (1–2 долоо хоног)",
+            "Яарахгүй (Тохиролцоно)"
+          ]
+        },
+        "details": {
+          "type": "string",
+          "description": "Detailed project requirements.",
+          "minLength": 10,
+          "maxLength": 1800
+        },
+        "status": {
+          "type": "string",
+          "description": "Order fulfillment status.",
+          "enum": ["new", "in_progress", "completed", "cancelled"]
+        },
+        "adminNote": {
+          "type": "string",
+          "description": "Internal admin note on order progress.",
+          "maxLength": 500
+        },
+        "customerUid": {
+          "type": "string",
+          "description": "Authenticated customer UID or empty string for guest orders.",
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the order was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the order was last updated."
+        }
+      },
+      "required": [
+        "orderCode",
+        "name",
+        "contact",
+        "email",
+        "projectType",
+        "budget",
+        "timeline",
+        "details",
+        "status",
+        "adminNote",
+        "customerUid",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "SiteSettings": {
+      "title": "SiteSettings",
+      "description": "Public portfolio configuration managed by the site admin.",
+      "type": "object",
+      "properties": {
+        "netlifySubdomain": {
+          "type": "string",
+          "description": "Active Netlify subdomain linked from the portfolio.",
+          "minLength": 2,
+          "maxLength": 80,
+          "pattern": "^[a-zA-Z0-9-]+$"
+        },
+        "updatedBy": {
+          "type": "string",
+          "description": "UID of the admin who updated the setting.",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of the latest update."
+        }
+      },
+      "required": ["netlifySubdomain", "updatedBy", "updatedAt"]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Trusted administrator record keyed by Firebase Auth UID.",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 150
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["email", "role", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Website development orders submitted by visitors and managed by the portfolio admin."
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/SiteSettings" },
+      "description": "Public site configuration such as the active Netlify subdomain."
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Trusted administrator directory for role-based access control."
+    }
+  }
+}
