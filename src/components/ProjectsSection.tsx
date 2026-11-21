@@ -23,7 +23,7 @@ export function ProjectsSection({ onOpenLightbox }: ProjectsSectionProps) {
     if (icon === 'youtube') {
       return <Youtube className="w-5 h-5 text-rose-400" />;
     }
-    return <Briefcase className="w-5 h-5 text-cyan-400" />;
+    return <Briefcase className="w-5 h-5 text-zinc-300" />;
   };
 
   return (
@@ -34,7 +34,7 @@ export function ProjectsSection({ onOpenLightbox }: ProjectsSectionProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
           <div>
-            <div className="flex items-center gap-2 text-xs font-medium text-cyan-400 tracking-wide mb-2">
+            <div className="flex items-center gap-2 text-xs font-medium text-zinc-300 tracking-wide mb-2">
               <Layers className="w-4 h-4 shrink-0" />
               <span>Төслүүдийн жагсаалт</span>
               <span aria-hidden="true" className="text-zinc-600">
@@ -58,9 +58,9 @@ export function ProjectsSection({ onOpenLightbox }: ProjectsSectionProps) {
             onClick={() => setIsConfigOpen(true)}
             className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium text-zinc-300 hover:text-white bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700 transition-colors whitespace-nowrap shrink-0 self-start md:self-auto"
           >
-            <Settings2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+            <Settings2 className="w-3.5 h-3.5 text-zinc-300 shrink-0" />
             <span>Netlify хаяг:</span>
-            <span className="font-mono text-cyan-300 truncate max-w-[140px]">
+            <span className="font-mono text-zinc-200 truncate max-w-[140px]">
               {subdomain}
             </span>
           </button>
@@ -119,7 +119,7 @@ export function ProjectsSection({ onOpenLightbox }: ProjectsSectionProps) {
 
                     <div className="absolute inset-0 bg-gradient-to-t from-[#09090b]/90 via-transparent to-black/20 pointer-events-none" />
 
-                    <span className="absolute top-3 right-3 w-9 h-9 rounded-lg bg-black/75 border border-zinc-800 text-zinc-200 group-hover:text-cyan-300 flex items-center justify-center transition-colors">
+                    <span className="absolute top-3 right-3 w-9 h-9 rounded-lg bg-black/75 border border-zinc-800 text-zinc-200 group-hover:text-white flex items-center justify-center transition-colors">
                       <Expand className="w-4 h-4" />
                     </span>
 
@@ -130,12 +130,12 @@ export function ProjectsSection({ onOpenLightbox }: ProjectsSectionProps) {
                   </button>
 
                   <div className="p-6 space-y-4">
-                    <div className="text-xs text-cyan-400 font-mono tabular-nums">
+                    <div className="text-xs text-zinc-400 font-mono tabular-nums">
                       {paddedIndex}
                     </div>
 
                     <div>
-                      <h3 className="text-xl font-bold text-white font-display group-hover:text-cyan-300 transition-colors">
+                      <h3 className="text-xl font-bold text-white font-display group-hover:text-zinc-200 transition-colors">
                         {project.title}
                       </h3>
                       <p className="text-sm text-zinc-400 leading-relaxed mt-2">
@@ -163,7 +163,7 @@ export function ProjectsSection({ onOpenLightbox }: ProjectsSectionProps) {
                     href={targetUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-black bg-cyan-400 hover:bg-cyan-300 rounded-xl transition-colors whitespace-nowrap shrink-0"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-black bg-zinc-200 hover:bg-white rounded-xl transition-colors whitespace-nowrap shrink-0"
                   >
                     <span>Шинэ цонхонд нээх</span>
                     <ArrowUpRight className="w-4 h-4" />

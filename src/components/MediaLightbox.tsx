@@ -43,7 +43,7 @@ export function MediaLightbox({ item, onClose }: MediaLightboxProps) {
       >
         <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-zinc-800/80">
           <div className="min-w-0">
-            <div className="text-xs text-cyan-400 truncate">{item.subtitle}</div>
+            <div className="text-xs text-zinc-400 truncate">{item.subtitle}</div>
             <h3 className="text-lg font-bold text-white font-display truncate">
               {item.title}
             </h3>
@@ -76,7 +76,7 @@ export function MediaLightbox({ item, onClose }: MediaLightboxProps) {
               href={item.externalUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-black bg-cyan-400 hover:bg-cyan-300 rounded-xl transition-colors whitespace-nowrap shrink-0 self-start sm:self-center"
+              className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-black bg-zinc-200 hover:bg-white rounded-xl transition-colors whitespace-nowrap shrink-0 self-start sm:self-center"
             >
               <span>{item.externalLabel || 'Шинэ цонхонд нээх'}</span>
               <ExternalLink className="w-3.5 h-3.5" />

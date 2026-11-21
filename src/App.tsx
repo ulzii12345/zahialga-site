@@ -18,7 +18,7 @@ export default function App() {
   return (
     <FirebaseProvider>
       <NetlifyProvider>
-        <div className="min-h-screen bg-[#050505] text-[#f4f4f5] flex flex-col font-sans selection:bg-cyan-500/20 selection:text-cyan-200">
+        <div className="min-h-screen bg-[#050505] text-[#f4f4f5] flex flex-col font-sans selection:bg-zinc-400/25 selection:text-white">
           <Navbar />
 
           <main className="flex-1">

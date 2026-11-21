@@ -26,7 +26,7 @@ export function AboutSection({ onOpenLightbox }: AboutSectionProps) {
     <section id="about" className="py-20 border-t border-zinc-800/80 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
-          <div className="flex items-center gap-2 text-xs font-medium text-cyan-400 tracking-wide mb-2">
+          <div className="flex items-center gap-2 text-xs font-medium text-zinc-300 tracking-wide mb-2">
             <User className="w-4 h-4 shrink-0" />
             <span>Миний тухай</span>
             <span aria-hidden="true" className="text-zinc-600">
@@ -69,7 +69,7 @@ export function AboutSection({ onOpenLightbox }: AboutSectionProps) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
 
-                <span className="absolute top-3 right-3 w-9 h-9 rounded-lg bg-black/75 border border-zinc-800 text-zinc-200 group-hover:text-cyan-300 flex items-center justify-center transition-colors">
+                <span className="absolute top-3 right-3 w-9 h-9 rounded-lg bg-black/75 border border-zinc-800 text-zinc-200 group-hover:text-white flex items-center justify-center transition-colors">
                   <Expand className="w-4 h-4" />
                 </span>
 
@@ -82,7 +82,7 @@ export function AboutSection({ onOpenLightbox }: AboutSectionProps) {
                       {PROFILE_DATA.role} · {PROFILE_DATA.age} настай
                     </div>
                   </div>
-                  <span className="text-xs font-mono text-cyan-400">
+                  <span className="text-xs font-mono text-zinc-300">
                     Суралцагч
                   </span>
                 </div>
@@ -145,7 +145,7 @@ export function AboutSection({ onOpenLightbox }: AboutSectionProps) {
                   href={getBaseUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-black bg-cyan-400 hover:bg-cyan-300 rounded-xl transition-colors whitespace-nowrap shrink-0"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-black bg-zinc-200 hover:bg-white rounded-xl transition-colors whitespace-nowrap shrink-0"
                 >
                   <span>Миний үндсэн сайт нээх</span>
                   <ExternalLink className="w-3.5 h-3.5" />

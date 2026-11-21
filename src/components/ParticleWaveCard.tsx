@@ -149,8 +149,8 @@ export function ParticleWaveCard({ className = '' }: ParticleWaveCardProps) {
           centerY,
           Math.max(width, height) * 0.65
         );
-        bgGlow.addColorStop(0, 'rgba(34, 211, 238, 0.10)');
-        bgGlow.addColorStop(0.55, 'rgba(8, 145, 178, 0.03)');
+        bgGlow.addColorStop(0, 'rgba(212, 212, 216, 0.10)');
+        bgGlow.addColorStop(0.55, 'rgba(113, 113, 122, 0.03)');
         bgGlow.addColorStop(1, 'rgba(5, 5, 5, 0)');
         ctx.fillStyle = bgGlow;
         ctx.fillRect(0, 0, width, height);
@@ -254,7 +254,7 @@ export function ParticleWaveCard({ className = '' }: ParticleWaveCardProps) {
               ctx.lineTo(pt.screenX, pt.screenY);
             }
           }
-          ctx.strokeStyle = 'rgba(34, 211, 238, 0.10)';
+          ctx.strokeStyle = 'rgba(212, 212, 216, 0.10)';
           ctx.stroke();
         }
 
@@ -281,11 +281,11 @@ export function ParticleWaveCard({ className = '' }: ParticleWaveCardProps) {
           ctx.arc(pt.screenX, pt.screenY, pt.radius, 0, Math.PI * 2);
 
           if (pt.elevation > 0.72) {
-            ctx.fillStyle = `rgba(103, 232, 249, ${pt.alpha})`;
+            ctx.fillStyle = `rgba(244, 244, 245, ${pt.alpha})`;
           } else if (pt.elevation > 0.44) {
-            ctx.fillStyle = `rgba(226, 232, 240, ${pt.alpha * 0.85})`;
+            ctx.fillStyle = `rgba(180, 180, 190, ${pt.alpha * 0.85})`;
           } else {
-            ctx.fillStyle = `rgba(113, 113, 122, ${pt.alpha * 0.6})`;
+            ctx.fillStyle = `rgba(92, 92, 102, ${pt.alpha * 0.65})`;
           }
           ctx.fill();
         }
@@ -300,8 +300,8 @@ export function ParticleWaveCard({ className = '' }: ParticleWaveCardProps) {
             pointerRef.current.y,
             56
           );
-          cursorGlow.addColorStop(0, 'rgba(34, 211, 238, 0.22)');
-          cursorGlow.addColorStop(1, 'rgba(34, 211, 238, 0)');
+          cursorGlow.addColorStop(0, 'rgba(228, 228, 231, 0.20)');
+          cursorGlow.addColorStop(1, 'rgba(228, 228, 231, 0)');
           ctx.fillStyle = cursorGlow;
           ctx.beginPath();
           ctx.arc(pointerRef.current.x, pointerRef.current.y, 56, 0, Math.PI * 2);
@@ -472,7 +472,7 @@ export function ParticleWaveCard({ className = '' }: ParticleWaveCardProps) {
                 : 'text-zinc-400 hover:text-zinc-200'
             }`}
           >
-            <RefreshCw className="w-3 h-3 text-cyan-400" />
+            <RefreshCw className="w-3 h-3 text-zinc-300" />
             <span>Интерактив 3D</span>
           </button>
           <button
@@ -484,13 +484,13 @@ export function ParticleWaveCard({ className = '' }: ParticleWaveCardProps) {
                 : 'text-zinc-400 hover:text-zinc-200'
             }`}
           >
-            <ImageIcon className="w-3 h-3 text-cyan-400" />
+            <ImageIcon className="w-3 h-3 text-zinc-300" />
             <span>Ажлын орчин</span>
           </button>
         </div>
 
         <div className="absolute bottom-4 left-4 z-20 pointer-events-none flex items-center gap-2 text-xs text-zinc-300">
-          <Sparkles className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+          <Sparkles className="w-3.5 h-3.5 text-zinc-300 shrink-0" />
           <span>
             {mode === 'interactive'
               ? 'Хулганаар чирэх эсвэл дарж 3D долгионыг удирдах боломжтой'

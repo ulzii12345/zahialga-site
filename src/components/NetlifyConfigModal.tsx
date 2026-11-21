@@ -52,7 +52,7 @@ export function NetlifyConfigModal() {
       >
         <div className="flex items-center justify-between pb-4 border-b border-zinc-800/80">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-cyan-400 shrink-0">
+            <div className="w-9 h-9 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 shrink-0">
               <Globe className="w-4 h-4" />
             </div>
             <div>
@@ -78,7 +78,7 @@ export function NetlifyConfigModal() {
         <form onSubmit={handleSubmit} className="mt-5 space-y-4">
           <p className="text-xs leading-relaxed text-zinc-400">
             Одоо холбогдсон үндсэн Netlify хаяг нь{' '}
-            <code className="text-cyan-400 bg-zinc-900 px-1.5 py-0.5 rounded">
+            <code className="text-zinc-200 bg-zinc-900 px-1.5 py-0.5 rounded">
               https://thunderous-valkyrie-0d52fb.netlify.app
             </code>{' '}
             юм. Хэрэв та өөр Netlify сайтын хаяг руу солихыг хүсвэл энд бичиж
@@ -92,7 +92,7 @@ export function NetlifyConfigModal() {
             >
               Netlify домэйн нэр
             </label>
-            <div className="flex items-center rounded-xl bg-zinc-900 border border-zinc-800 px-3 py-2.5 focus-within:border-cyan-500 transition-colors">
+            <div className="flex items-center rounded-xl bg-zinc-900 border border-zinc-800 px-3 py-2.5 focus-within:border-zinc-400 transition-colors">
               <span className="text-xs text-zinc-500 select-none mr-1">
                 https://
               </span>
@@ -117,7 +117,7 @@ export function NetlifyConfigModal() {
                 href={getBaseUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-cyan-400 hover:underline inline-flex items-center gap-1 font-mono truncate max-w-[220px]"
+                className="text-zinc-200 hover:text-white hover:underline inline-flex items-center gap-1 font-mono truncate max-w-[220px]"
               >
                 <span className="truncate">{getBaseUrl()}</span>
                 <ExternalLink className="w-3 h-3 shrink-0" />
@@ -153,7 +153,7 @@ export function NetlifyConfigModal() {
               </button>
               <button
                 type="submit"
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-black bg-cyan-400 hover:bg-cyan-300 rounded-lg transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-black bg-zinc-200 hover:bg-white rounded-lg transition-colors"
               >
                 <Check className="w-3.5 h-3.5" />
                 <span>Хадгалах</span>

@@ -210,7 +210,7 @@ export function OrderSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           <div className="lg:col-span-5 space-y-8">
             <div>
-              <div className="flex items-center gap-2 text-xs font-medium text-cyan-400 tracking-wide mb-2">
+              <div className="flex items-center gap-2 text-xs font-medium text-zinc-300 tracking-wide mb-2">
                 <Sparkles className="w-4 h-4 shrink-0" />
                 <span>Вэб сайт захиалга</span>
                 <span aria-hidden="true" className="text-zinc-600">
@@ -231,7 +231,7 @@ export function OrderSection() {
             <div className="divide-y divide-zinc-800/80 border-t border-b border-zinc-800/80">
               {ORDER_STEPS.map((step) => (
                 <div key={step.number} className="py-4 flex items-start gap-4">
-                  <span className="font-mono text-sm font-bold text-cyan-400 tabular-nums pt-0.5 shrink-0">
+                  <span className="font-mono text-sm font-bold text-zinc-300 tabular-nums pt-0.5 shrink-0">
                     {step.number}.
                   </span>
                   <div>
@@ -252,7 +252,7 @@ export function OrderSection() {
                 onClick={() => setIsPortalOpen(true)}
                 className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-zinc-200 hover:text-white bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl transition-colors whitespace-nowrap"
               >
-                <ClipboardList className="w-4 h-4 text-cyan-400 shrink-0" />
+                <ClipboardList className="w-4 h-4 text-zinc-300 shrink-0" />
                 <span>
                   {isAdmin
                     ? 'Админ захиалгын самбар нээх'
@@ -273,7 +273,7 @@ export function OrderSection() {
                   </div>
 
                   <div className="space-y-2">
-                    <div className="text-xs font-mono text-cyan-400">
+                    <div className="text-xs font-mono text-zinc-300">
                       Захиалгын дугаар: {receipt.orderId}
                     </div>
                     <h3 className="text-2xl font-bold text-white font-display">
@@ -305,7 +305,7 @@ export function OrderSection() {
                     <button
                       type="button"
                       onClick={handleReset}
-                      className="inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold text-black bg-cyan-400 hover:bg-cyan-300 rounded-xl transition-colors"
+                      className="inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold text-black bg-zinc-200 hover:bg-white rounded-xl transition-colors"
                     >
                       Шинэ захиалга өгөх
                     </button>
@@ -334,7 +334,7 @@ export function OrderSection() {
                             onClick={() => setProjectType(type)}
                             className={`px-3.5 py-2.5 text-xs font-medium rounded-xl border text-left transition-colors whitespace-nowrap truncate ${
                               isSelected
-                                ? 'bg-cyan-400/10 border-cyan-400 text-cyan-300'
+                                ? 'bg-zinc-200/10 border-zinc-300 text-white'
                                 : 'bg-zinc-900/70 border-zinc-800 text-zinc-300 hover:border-zinc-700 hover:text-white'
                             }`}
                           >
@@ -365,7 +365,7 @@ export function OrderSection() {
                           }
                         }}
                         placeholder="Жишээ нь: Бат-Эрдэнэ"
-                        className="w-full rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-cyan-400 transition-colors"
+                        className="w-full rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-400 transition-colors"
                       />
                       {errors.name && (
                         <p className="mt-1.5 text-xs text-rose-400">
@@ -397,7 +397,7 @@ export function OrderSection() {
                           }
                         }}
                         placeholder="Жишээ нь: 9911xxxx эсвэл @discord"
-                        className="w-full rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-cyan-400 transition-colors"
+                        className="w-full rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-400 transition-colors"
                       />
                       {errors.contact && (
                         <p className="mt-1.5 text-xs text-rose-400">
@@ -430,7 +430,7 @@ export function OrderSection() {
                           }
                         }}
                         placeholder="name@example.com"
-                        className="w-full rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-cyan-400 transition-colors"
+                        className="w-full rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-400 transition-colors"
                       />
                       {errors.email && (
                         <p className="mt-1.5 text-xs text-rose-400">
@@ -450,7 +450,7 @@ export function OrderSection() {
                         id="order-budget"
                         value={budget}
                         onChange={(e) => setBudget(e.target.value)}
-                        className="w-full rounded-xl bg-zinc-900 border border-zinc-800 px-3 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition-colors"
+                        className="w-full rounded-xl bg-zinc-900 border border-zinc-800 px-3 py-2.5 text-sm text-white focus:outline-none focus:border-zinc-400 transition-colors"
                       >
                         {BUDGET_OPTIONS.map((option) => (
                           <option key={option} value={option}>
@@ -471,7 +471,7 @@ export function OrderSection() {
                         id="order-timeline"
                         value={timeline}
                         onChange={(e) => setTimeline(e.target.value)}
-                        className="w-full rounded-xl bg-zinc-900 border border-zinc-800 px-3 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition-colors"
+                        className="w-full rounded-xl bg-zinc-900 border border-zinc-800 px-3 py-2.5 text-sm text-white focus:outline-none focus:border-zinc-400 transition-colors"
                       >
                         {TIMELINE_OPTIONS.map((option) => (
                           <option key={option} value={option}>
@@ -505,7 +505,7 @@ export function OrderSection() {
                         }
                       }}
                       placeholder="Ямар хуудсууд, өнгө загвар, онцлог функцүүд хэрэгтэй байгаагаа бичнэ үү..."
-                      className="w-full rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-cyan-400 transition-colors resize-y"
+                      className="w-full rounded-xl bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-400 transition-colors resize-y"
                     />
                     {errors.details && (
                       <p className="mt-1.5 text-xs text-rose-400">
@@ -531,7 +531,7 @@ export function OrderSection() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-black bg-cyan-400 hover:bg-cyan-300 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl transition-colors whitespace-nowrap shrink-0"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-black bg-zinc-200 hover:bg-white disabled:opacity-60 disabled:cursor-not-allowed rounded-xl transition-colors whitespace-nowrap shrink-0"
                     >
                       {submitting ? (
                         <>

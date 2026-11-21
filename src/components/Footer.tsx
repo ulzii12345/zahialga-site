@@ -23,7 +23,7 @@ export function Footer() {
               href={getBaseUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs text-cyan-400 hover:underline font-mono"
+              className="inline-flex items-center gap-1.5 text-xs text-zinc-300 hover:text-white hover:underline font-mono"
             >
               <Globe className="w-3.5 h-3.5 shrink-0" />
               <span>{getBaseUrl()}</span>
@@ -49,7 +49,7 @@ export function Footer() {
               href={getUrlForSlug(project.originalSlug)}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-300 hover:text-cyan-400 transition-colors inline-flex items-center gap-1"
+              className="text-zinc-300 hover:text-white transition-colors inline-flex items-center gap-1"
             >
               <span>{project.title}</span>
               <ExternalLink className="w-3 h-3 text-zinc-500" />

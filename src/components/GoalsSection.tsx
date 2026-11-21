@@ -5,11 +5,11 @@ export function GoalsSection() {
   const renderGoalIcon = (icon: GoalItem['icon']) => {
     switch (icon) {
       case 'globe':
-        return <Globe className="w-4 h-4 text-cyan-400" />;
+        return <Globe className="w-4 h-4 text-zinc-300" />;
       case 'sparkles':
-        return <Sparkles className="w-4 h-4 text-cyan-400" />;
+        return <Sparkles className="w-4 h-4 text-zinc-300" />;
       case 'target':
-        return <Target className="w-4 h-4 text-cyan-400" />;
+        return <Target className="w-4 h-4 text-zinc-300" />;
     }
   };
 
@@ -17,7 +17,7 @@ export function GoalsSection() {
     <section id="goals" className="py-20 border-t border-zinc-800/80 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
-          <div className="flex items-center gap-2 text-xs font-medium text-cyan-400 tracking-wide mb-2">
+          <div className="flex items-center gap-2 text-xs font-medium text-zinc-300 tracking-wide mb-2">
             <Target className="w-4 h-4 shrink-0" />
             <span>Суралцах зорилго</span>
             <span aria-hidden="true" className="text-zinc-600">
@@ -42,7 +42,7 @@ export function GoalsSection() {
             >
               <div>
                 <div className="flex items-center justify-between pb-4 border-b border-zinc-800/80">
-                  <span className="font-mono text-2xl font-bold text-cyan-400 tracking-tight tabular-nums">
+                  <span className="font-mono text-2xl font-bold text-zinc-300 tracking-tight tabular-nums">
                     {goal.number}
                   </span>
                   <div className="w-9 h-9 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center">
@@ -61,7 +61,7 @@ export function GoalsSection() {
               <ul className="mt-6 pt-4 border-t border-zinc-800/70 space-y-2.5 text-xs text-zinc-300">
                 {goal.details.map((detail) => (
                   <li key={detail} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-zinc-300 shrink-0 mt-0.5" />
                     <span>{detail}</span>
                   </li>
                 ))}
@@ -82,7 +82,7 @@ export function GoalsSection() {
           </div>
           <a
             href="#order"
-            className="px-5 py-2.5 text-xs font-semibold text-black bg-cyan-400 hover:bg-cyan-300 rounded-xl transition-colors whitespace-nowrap shrink-0"
+            className="px-5 py-2.5 text-xs font-semibold text-black bg-zinc-200 hover:bg-white rounded-xl transition-colors whitespace-nowrap shrink-0"
           >
             Вэб сайт захиалах
           </a>

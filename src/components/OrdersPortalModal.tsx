@@ -50,7 +50,7 @@ const STATUS_LABELS: Record<OrderStatus, string> = {
 };
 
 const STATUS_STYLES: Record<OrderStatus, string> = {
-  new: 'text-cyan-300 border-cyan-500/40 bg-cyan-950/40',
+  new: 'text-zinc-200 border-zinc-500/40 bg-zinc-800/70',
   in_progress: 'text-amber-300 border-amber-500/40 bg-amber-950/40',
   completed: 'text-emerald-300 border-emerald-500/40 bg-emerald-950/40',
   cancelled: 'text-zinc-400 border-zinc-700 bg-zinc-900',
@@ -215,7 +215,7 @@ export function OrdersPortalModal() {
       >
         <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-zinc-800/80">
           <div className="min-w-0">
-            <div className="flex items-center gap-2 text-xs text-cyan-400">
+            <div className="flex items-center gap-2 text-xs text-zinc-300">
               <ShieldCheck className="w-4 h-4 shrink-0" />
               <span>
                 {isAdmin
@@ -255,7 +255,7 @@ export function OrdersPortalModal() {
         <div className="flex-1 overflow-y-auto p-6 space-y-5">
           {!user ? (
             <div className="py-10 text-center space-y-5 max-w-md mx-auto">
-              <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mx-auto text-cyan-400">
+              <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mx-auto text-zinc-300">
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <div className="space-y-2">
@@ -274,7 +274,7 @@ export function OrdersPortalModal() {
               <button
                 type="button"
                 onClick={() => void signInWithGoogle()}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-black bg-cyan-400 hover:bg-cyan-300 rounded-xl transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-black bg-zinc-200 hover:bg-white rounded-xl transition-colors"
               >
                 <span>Google-ээр нэвтрэх</span>
               </button>
@@ -342,7 +342,7 @@ export function OrdersPortalModal() {
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-zinc-800/80">
                           <div className="space-y-0.5">
                             <div className="flex flex-wrap items-center gap-2 text-xs">
-                              <span className="font-mono font-semibold text-cyan-400">
+                              <span className="font-mono font-semibold text-zinc-200">
                                 {order.orderCode}
                               </span>
                               <span aria-hidden="true" className="text-zinc-600">
@@ -400,7 +400,7 @@ export function OrdersPortalModal() {
                         </p>
 
                         {order.adminNote && !isAdmin && (
-                          <div className="text-xs text-cyan-300 bg-cyan-950/30 border border-cyan-900/50 rounded-lg p-3">
+                          <div className="text-xs text-zinc-200 bg-zinc-900/90 border border-zinc-700/70 rounded-lg p-3">
                             Хөгжүүлэгчийн тэмдэглэл: {order.adminNote}
                           </div>
                         )}
@@ -426,7 +426,7 @@ export function OrdersPortalModal() {
                                     }
                                     className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors ${
                                       order.status === statusKey
-                                        ? 'bg-cyan-400 text-black border-cyan-400 font-semibold'
+                                        ? 'bg-zinc-200 text-black border-zinc-200 font-semibold'
                                         : 'bg-zinc-900 text-zinc-300 border-zinc-800 hover:border-zinc-700'
                                     }`}
                                   >
@@ -458,13 +458,13 @@ export function OrdersPortalModal() {
                                   }))
                                 }
                                 placeholder="Админы тэмдэглэл бичих..."
-                                className="flex-1 rounded-lg bg-zinc-900 border border-zinc-800 px-3 py-2 text-xs text-white placeholder:text-zinc-500 focus:outline-none focus:border-cyan-400"
+                                className="flex-1 rounded-lg bg-zinc-900 border border-zinc-800 px-3 py-2 text-xs text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-400"
                               />
                               <button
                                 type="button"
                                 disabled={isBusy}
                                 onClick={() => void handleSaveNote(order)}
-                                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold text-black bg-cyan-400 hover:bg-cyan-300 disabled:opacity-50 rounded-lg transition-colors whitespace-nowrap shrink-0"
+                                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold text-black bg-zinc-200 hover:bg-white disabled:opacity-50 rounded-lg transition-colors whitespace-nowrap shrink-0"
                               >
                                 <Save className="w-3.5 h-3.5" />
                                 <span>Тэмдэглэл хадгалах</span>
