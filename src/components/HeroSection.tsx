@@ -17,10 +17,6 @@ export function HeroSection() {
             <div className="flex items-center gap-2 text-xs font-medium text-cyan-400 tracking-wide">
               <CodeXml className="w-4 h-4 text-cyan-400 shrink-0" />
               <span>Сурагч хөгжүүлэгчийн портфолио</span>
-              <span aria-hidden="true" className="text-zinc-600">
-                ·
-              </span>
-              <span className="text-zinc-400">16 настай</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight text-white leading-[1.12] text-balance font-display">
@@ -70,7 +66,7 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="lg:col-span-6 flex">
+          <div className="lg:col-span-6 flex min-h-[340px]">
             <ParticleWaveCard className="w-full" />
           </div>
         </div>

@@ -5,7 +5,6 @@ import {
   Expand,
   Layers,
   Settings2,
-  Sparkles,
   Youtube,
 } from 'lucide-react';
 import { useNetlify } from '../context/NetlifyContext';
@@ -84,7 +83,7 @@ export function ProjectsSection({ onOpenLightbox }: ProjectsSectionProps) {
                     onClick={() =>
                       onOpenLightbox({
                         title: `${paddedIndex}. ${project.title}`,
-                        subtitle: `${project.category} · ${project.originalSlug}`,
+                        subtitle: project.category,
                         description: project.description,
                         imageUrl: project.previewImage,
                         externalUrl: targetUrl,
@@ -115,9 +114,6 @@ export function ProjectsSection({ onOpenLightbox }: ProjectsSectionProps) {
                         <span className="text-base font-bold text-white">
                           {project.title}
                         </span>
-                        <span className="text-xs text-zinc-500 font-mono mt-1">
-                          {project.originalSlug}
-                        </span>
                       </div>
                     )}
 
@@ -134,14 +130,8 @@ export function ProjectsSection({ onOpenLightbox }: ProjectsSectionProps) {
                   </button>
 
                   <div className="p-6 space-y-4">
-                    <div className="flex items-center gap-2 text-xs text-zinc-400 font-mono">
-                      <span className="tabular-nums text-cyan-400">
-                        {paddedIndex}
-                      </span>
-                      <span aria-hidden="true" className="text-zinc-600">
-                        /
-                      </span>
-                      <span>{project.originalSlug}</span>
+                    <div className="text-xs text-cyan-400 font-mono tabular-nums">
+                      {paddedIndex}
                     </div>
 
                     <div>
@@ -168,14 +158,7 @@ export function ProjectsSection({ onOpenLightbox }: ProjectsSectionProps) {
                   </div>
                 </div>
 
-                <div className="px-6 py-4 border-t border-zinc-800/80 flex items-center justify-between gap-4 bg-zinc-950/50">
-                  <div className="min-w-0">
-                    <div className="text-xs text-zinc-500">Очих хаяг:</div>
-                    <div className="font-mono text-xs text-zinc-300 truncate max-w-[200px] sm:max-w-xs">
-                      {targetUrl}
-                    </div>
-                  </div>
-
+                <div className="px-6 py-4 border-t border-zinc-800/80 flex items-center justify-end gap-4 bg-zinc-950/50">
                   <a
                     href={targetUrl}
                     target="_blank"
@@ -189,23 +172,6 @@ export function ProjectsSection({ onOpenLightbox }: ProjectsSectionProps) {
               </article>
             );
           })}
-        </div>
-
-        <div className="mt-10 p-4 rounded-xl bg-zinc-900/60 border border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-zinc-400">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-cyan-400 shrink-0" />
-            <span>
-              Бүх төслүүд нэг жагсаалт (array) бүтцээр кодлогдсон бөгөөд карт
-              бүрийн холбоос шинэ табд нээгдэнэ.
-            </span>
-          </div>
-          <button
-            type="button"
-            onClick={() => setIsConfigOpen(true)}
-            className="text-cyan-400 hover:underline font-medium whitespace-nowrap shrink-0 self-start sm:self-auto"
-          >
-            Netlify домэйн өөрчлөх →
-          </button>
         </div>
       </div>
     </section>

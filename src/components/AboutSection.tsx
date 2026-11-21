@@ -57,7 +57,7 @@ export function AboutSection({ onOpenLightbox }: AboutSectionProps) {
                     externalLabel: 'Үндсэн сайт нээх',
                   })
                 }
-                className="relative aspect-square w-full overflow-hidden bg-zinc-950 block text-left cursor-pointer"
+                className="relative aspect-square lg:aspect-auto lg:flex-1 w-full overflow-hidden bg-zinc-950 block text-left cursor-pointer"
                 aria-label="Хөрөг зургийг томоор харах"
               >
                 <img
@@ -87,19 +87,6 @@ export function AboutSection({ onOpenLightbox }: AboutSectionProps) {
                   </span>
                 </div>
               </button>
-
-              <div className="p-4 bg-zinc-950 border-t border-zinc-800/80 flex items-center justify-between gap-3 text-xs text-zinc-400">
-                <span className="text-zinc-500">Үндсэн сайт:</span>
-                <a
-                  href={getBaseUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-cyan-400 hover:underline inline-flex items-center gap-1 font-mono truncate max-w-[220px]"
-                >
-                  <span className="truncate">{getBaseUrl().replace('https://', '')}</span>
-                  <ExternalLink className="w-3 h-3 shrink-0" />
-                </a>
-              </div>
             </div>
           </div>
 

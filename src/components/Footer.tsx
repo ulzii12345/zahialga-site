@@ -59,13 +59,6 @@ export function Footer() {
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-400 pt-2">
           <div>© 2026 {PROFILE_DATA.name}. Бүх эрх хуулиар хамгаалагдсан.</div>
-          <div className="flex items-center gap-2 text-zinc-400">
-            <span>Вэб хөгжүүлэлт</span>
-            <span aria-hidden="true">·</span>
-            <span>16 настай</span>
-            <span aria-hidden="true">·</span>
-            <span>Монгол</span>
-          </div>
         </div>
       </div>
     </footer>
